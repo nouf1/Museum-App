@@ -4,8 +4,10 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
 
+
 // require route files
-const exampleRoutes = require('./app/routes/example_routes')
+const indexRouter = require('./app/routes/index');
+const museumRoutes = require('./app/routes/museum_routes')
 const userRoutes = require('./app/routes/user_routes')
 
 // require error handling middleware
@@ -30,7 +32,8 @@ const expressPort = 3000
 
 // establish database connection
 mongoose.Promise = global.Promise
-mongoose.connect(db, {
+mongoose.connect(db, 
+  {
   useMongoClient: true
 })
 
@@ -62,8 +65,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // add request logger to create server log
 app.use(requestLogger)
 
-// register route files
-app.use(exampleRoutes)
+// Mount imported Routers
+app.use(indexRouter);
+app.use(museumRoutes)
 app.use(userRoutes)
 
 // register error handling middleware
