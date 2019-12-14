@@ -15,7 +15,7 @@ const errors = require('../../lib/custom_errors')
 const BadParamsError = errors.BadParamsError
 const BadCredentialsError = errors.BadCredentialsError
 
-const User = require('../models/user')
+const User = require('../models/user').User
 
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
@@ -32,7 +32,7 @@ router.post('/sign-up', (req, res, next) => {
   Promise.resolve(req.body.credentials)
     // reject any requests where `credentials.password` is not present, or where
     // the password is an empty string
-    .then(credentials => {
+    .then((credentials) => {
       if (!credentials ||
           !credentials.password ||
           credentials.password !== credentials.password_confirmation) {
@@ -43,6 +43,8 @@ router.post('/sign-up', (req, res, next) => {
     .then(() => bcrypt.hash(req.body.credentials.password, bcryptSaltRounds))
     .then(hash => {
       // return necessary params to create a user
+      console.log(req.body);
+      
       return {
         email: req.body.credentials.email,
         hashedPassword: hash

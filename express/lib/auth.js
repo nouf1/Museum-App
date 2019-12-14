@@ -4,13 +4,15 @@ const bearer = require('passport-http-bearer')
 
 // user model will be used to set `req.user` in
 // authenticated routes
-const User = require('../app/models/user')
+const User = require('../app/models/user').User
 
 // this strategy will grab a bearer token from the HTTP headers and then
 // run the callback with the found token as `token`
 const strategy = new bearer.Strategy(
   function (token, done) {
     // look for a user whose token matches the one from the header
+    console.log(token);
+    
     User.findOne({ token: token }, function (err, user) {
       if (err) { return done(err) }
       // if we found a user, pass it along to the route files

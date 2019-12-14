@@ -4,9 +4,10 @@ const express = require('express')
 const passport = require('passport')
 
 // pull in Mongoose model for museum
-const Museum = require('../models/museum')
+const Museum = require('../models/museum').Museum
+const Event = require('../models/museum').Event
 // pull in Mongoose model for event
-const Event = require("../models/event").Event;
+// const Event = require("../models/event").Event;
 
 // this is a collection of methods that help us detect situations when we need
 // to throw a custom error
@@ -35,10 +36,10 @@ const router = express.Router()
  * URI:         /api/museums
  * Description: Get All Museums
  **/
-router.get('/api/museums', requireToken, (req, res, next) => {
+router.get('/api/museums',  (req, res, next) => {
   
   // Option 1 get user's museums
-  Museum.find({owner: req.user.id})
+  Museum.find()
     .then(museums => res.status(200).json({museums: museums}))
     .catch(next)
   
@@ -55,15 +56,15 @@ router.get('/api/museums', requireToken, (req, res, next) => {
 * URI:          /api/museums/5a7db6c74d55bc51bdf39793
 * Description:  Get A Museum by Museum ID
 */
-router.get('/api/museums/:id', requireToken, (req, res, next) => {
+router.get('/api/museums/:id', (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
   Museum.findById(req.params.id)
     .then(handle404)
     // if `findById` is succesful, respond with 200 and "museum" JSON
-    .then(museum => {
+    .then((museum) => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      requireOwnership(req, museum)
+      // requireOwnership(req, museum)
     
       res.status(200).json({ museum: museum.toObject() })
     })
@@ -76,13 +77,14 @@ router.get('/api/museums/:id', requireToken, (req, res, next) => {
  * URI:         /api/museums
  * Description: Create a new Museum
 */
-router.post('/museums', requireToken, (req, res, next) => {
+router.post('/api/museums', requireToken, (req, res, next) => {
   // set owner of new museum to be current user
+  
   req.body.museum.owner = req.user.id
 
   Museum.create(req.body.museum)
     // respond to succesful `create` with status 201 and JSON of new "museum"
-    .then(museum => {
+    .then((museum) => {
       res.status(201).json({ museum: museum.toObject() })
     })
     // if an error occurs, pass it off to our error handler
@@ -96,14 +98,17 @@ router.post('/museums', requireToken, (req, res, next) => {
 * URI:          /api/museums/5a7db6c74d55bc51bdf39793
 * Description:  Update A Musium by Museum ID
  */
-router.patch('/museums/:id', requireToken, removeBlanks, (req, res, next) => {
+router.patch('/api/museums/:id', requireToken, removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
-  delete req.body.museum.owner
+  // delete req.body.museum.owner
 
   Museum.findById(req.params.id)
     .then(handle404)
-    .then(museum => {
+    .then((museum) => {
+      console.log("dffdfd");
+      console.log(museum);
+      
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
       requireOwnership(req, museum)
@@ -112,7 +117,7 @@ router.patch('/museums/:id', requireToken, removeBlanks, (req, res, next) => {
       return museum.update(req.body.museum)
     })
     // if that succeeded, return 204 and no JSON
-    .then(() => res.status(204))
+    .then(() => res.status(204).end())
     // if an error occurs, pass it to the handler
     .catch(next)
 })
@@ -122,7 +127,7 @@ router.patch('/museums/:id', requireToken, removeBlanks, (req, res, next) => {
 * URI:          /api/museums/5a7db6c74d55bc51bdf39793
 * Description: Delete A Musium by Museum ID
  */
-router.delete('/museums/:id', requireToken, (req, res, next) => {
+router.delete('/api/museums/:id', requireToken, (req, res, next) => {
   Museum.findById(req.params.id)
     .then(handle404)
     .then(museum => {
@@ -150,7 +155,7 @@ router.get("/api/museums/:museumId/events", (request, response) => {
   const
     museumId = request.params.museumId;
 
-    museum.findById(museumId)
+    Museum.findById(museumId)
     .then(museum => {
       if (museum) {
         // Pass the result of Mongoose's ".get" method to the next ".then"
@@ -190,7 +195,7 @@ router.get("/api/museums/:museumId/events/:eventId", (request, response) => {
     museumId = request.params.museumId,
     eventId = request.params.eventId;
 
-    museum.findById(museumId)
+    Museum.findById(museumId)
     .then(museum => {
       if (museum) {
         // Pass the result of Mongoose's ".get" method to the next ".then"
@@ -225,20 +230,23 @@ router.get("/api/museums/:museumId/events/:eventId", (request, response) => {
  * URI        : /api/museums/66ftr54t8fu4rr78sww9r334r/events *
  * Description: Create a new event for an museum              *
  *****************************************************************/
-router.post("/api/museums/:museumId/events", (request, response) => {
+router.post("/api/museums/:museumId/events", requireToken, (request, response) => {
   const
     museumId  = request.params.museumId,
     event    = request.body.event,
-    newevent = new event({ text: event.text });
-
-  museum.findById(museumId)
+    newevent = new Event(event);
+  // console.log(newevent);
+  
+  Museum.findById(museumId)
     // On a successful "create" action, respond with 201
     // HTTP status and the content of the new event
     .then(museum => {
       if (museum) {
+        
         museum.events.push(newevent);
+        console.log(museum.events);
         // ".markModified" might not be needed
-        museum.markModified("events");
+        // museum.markModified("events");
         return museum.save();
       } else {
         // If we could not find a document with the matching ID
@@ -266,13 +274,13 @@ router.post("/api/museums/:museumId/events", (request, response) => {
  * URI        : /api/museums/66ftr54t8fu4rr78sww9r334r/events/22ftr54t8mu4xx78sww9r774r *
  * Description: Update a event from an museum by event ID and museum ID              *
  *******************************************************************************************/
-router.patch("/api/museums/:museumId/events/:eventId", (request, response) => {
+router.patch("/api/museums/:museumId/events/:eventId", requireToken,  (request, response) => {
   const
     museumId  = request.params.museumId,
     eventId  = request.params.eventId,
     newevent = request.body.event;
 
-  museum.findById(museumId)
+  Museum.findById(museumId)
     .then(museum => {
       if (museum) {
         // Pass the result of Mongoose's ".patch" method to the next ".then"
@@ -280,7 +288,10 @@ router.patch("/api/museums/:museumId/events/:eventId", (request, response) => {
         const
           currentevent = museum.events.id(eventId);
 
-        currentevent.text = newevent.text;
+        currentevent.title = newevent.title;
+        currentevent.startDate = newevent.startDate;
+        currentevent.endDate = newevent.endDate;
+        currentevent.img = newevent.img;
          // ".markModified" might not be needed
         museum.markModified("events");
         return museum.save();
@@ -310,12 +321,12 @@ router.patch("/api/museums/:museumId/events/:eventId", (request, response) => {
  * URI        : /api/museums/66ftr54t8fu4rr78sww9r334r/events/22ftr54t8mu4xx78sww9r774r *
  * Description: Delete a event from an museum by event ID and museum ID              *
  *******************************************************************************************/
-router.delete("/api/museums/:museumId/events/:eventId", (request, response) => {
+router.delete("/api/museums/:museumId/events/:eventId", requireToken, (request, response) => {
   const
     museumId = request.params.museumId,
     eventId = request.params.eventId;
 
-  museum.findById(museumId)
+  Museum.findById(museumId)
     .then(museum => {
       if (museum) {
         // Pass the result of Mongoose's ".delete" method to the next ".then"

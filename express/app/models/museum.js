@@ -1,15 +1,12 @@
 const mongoose = require('mongoose')
-
+const Schema = mongoose.Schema
 // Define Event Schema (Embedded Document/Record)
-const
-  eventSchema = new Schema(
-    {
+const eventSchema = new Schema({
       title: {type: String, required: true},
       startDate : String,
       endDate: String,
-      image: String
-    }
-  );
+      img: String  
+    });
 
   // Define Museum Schema (Parent Document/Record)
 const museumSchema = new mongoose.Schema({
@@ -40,7 +37,8 @@ const museumSchema = new mongoose.Schema({
     required: true
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  usePushEach: true
 })
 
 // Compile our Models based on the Schema
@@ -49,4 +47,4 @@ const
   Event = mongoose.model("Event", eventSchema);
 
 // Export our Model for use
-module.exports = { Museume, Event };
+module.exports = { Museum, Event };
