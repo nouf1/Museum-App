@@ -55,3 +55,17 @@ export const changePassword = (passwords, user) => {
     }
   })
 }
+// Get All MuseumList
+export const getAllMuseumList = function() {
+  return axios.get(`${apiUrl}/api/museums`);
+}
+
+// Delete Museum By ID
+export const deleteMuseumByID = function(id) {
+  return axios.delete(`${apiUrl}/museumList/${id}`);
+}
+
+
+export const updateMuseumByID = (id) => {
+  return axios.patch(`${apiUrl}/museums/${id}`)
+}

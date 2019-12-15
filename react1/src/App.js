@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './App.scss'
 import { Route } from 'react-router-dom'
-
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
 import Header from './header/Header'
 import SignUp from './auth/components/SignUp'
@@ -9,6 +8,8 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import AlertDismissible from './auth/components/AlertDismissible'
+import Museum from './auth/components/Museum';
+import MuseumList from './auth/components/MuseumList'
 
 class App extends Component {
   constructor () {
@@ -16,8 +17,12 @@ class App extends Component {
 
     this.state = {
       user: null,
-      alerts: []
+      alerts: [],
+      museumList: []
     }
+  }
+  setMuseumList = (museumList) => {
+    this.setState({ museumList: museumList});
   }
 
   setUser = user => this.setState({ user })
@@ -51,9 +56,13 @@ class App extends Component {
             <ChangePassword alert={this.alert} user={user} />
           )} />
         </main>
-      </React.Fragment>
-    )
+        <Route exact path='/' render={() => (
+            <MuseumList  museumList={this.state.museumList} 
+            setMuseumList={this.setMuseumList} />
+          )} />
+       
+                  </React.Fragment>
+    );
   }
 }
-
-export default App
+export default App;
