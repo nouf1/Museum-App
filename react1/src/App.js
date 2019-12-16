@@ -10,6 +10,8 @@ import ChangePassword from './auth/components/ChangePassword'
 import AlertDismissible from './auth/components/AlertDismissible'
 import Museum from './auth/components/Museum';
 import MuseumList from './auth/components/MuseumList'
+import MuseumUpdate from './auth/components/MuseumUpdate'
+import MuseumCreate from './auth/components/MuseumCreate'
 
 class App extends Component {
   constructor () {
@@ -21,6 +23,10 @@ class App extends Component {
       museumList: []
     }
   }
+  // setMuseum = (museum) => {
+  //   this.setState({ museum: museum});
+  // }
+
   setMuseumList = (museumList) => {
     this.setState({ museumList: museumList});
   }
@@ -59,6 +65,16 @@ class App extends Component {
         <Route exact path='/' render={() => (
             <MuseumList  museumList={this.state.museumList} 
             setMuseumList={this.setMuseumList} />
+          )} />
+
+          <Route  path='/museumUpdate/:id' render={() => (
+            <MuseumUpdate user={user}  museumUpdate={this.state.museumUpdate} 
+            setMuseumUpdate={this.setMuseumUpdate} />
+          )} />
+
+          <Route exact path='/museumCreate' render={() => (
+            <MuseumCreate user={user} museumCreate={this.state.museumCreate} 
+            setMuseumCreate={this.setMuseumCreate} />
           )} />
        
                   </React.Fragment>

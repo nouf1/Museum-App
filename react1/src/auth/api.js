@@ -62,10 +62,56 @@ export const getAllMuseumList = function() {
 
 // Delete Museum By ID
 export const deleteMuseumByID = function(id) {
-  return axios.delete(`${apiUrl}/museumList/${id}`);
+
+  return axios.delete(`${apiUrl}/api/museums/${id}`);
+}
+
+// Update Museum By ID
+// export const updateMuseumByID = (id) => {
+//   return axios.patch(`${apiUrl}/museums/${id}`)
+// }
+export const museumUpdateByID = (user, museumUpdate, id) => {
+  console.log("user.token, museumUpdate, id");
+  console.log(user.token, museumUpdate, id);
+  
+  return axios({
+      url: apiUrl + `/api/museums/${id}`,
+      method: 'PATCH',
+      headers: {
+          'Authorization': `Bearer ${user.token}`
+      },
+      data: {
+        museum: museumUpdate
+      }
+  })
+}
+
+export const show = (id) => {
+  return axios({
+      method: 'GET',
+      url: apiUrl + `/api/museums/${id}`
+  })
 }
 
 
-export const updateMuseumByID = (id) => {
-  return axios.patch(`${apiUrl}/museums/${id}`)
+
+export const create = (user, newMuseum) => {
+  console.log(user);
+  console.log(newMuseum);
+  
+  return axios({
+      method: 'POST',
+      url: apiUrl + '/api/museums',
+      headers: {
+          'Authorization': `Bearer ${user.token}`
+      },
+      data: {
+        musuem: newMuseum
+          
+      }
+  })
 }
+
+
+
+

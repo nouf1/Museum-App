@@ -1,16 +1,22 @@
 import React from 'react'
-
+import {Link} from "react-router-dom"
 class Museum extends React.Component {
     deleteMuseum = (e) => {
       e.preventDefault();
       this.props.deleteMuseum(this.props.id);
     }
-    updateMuseum = (e) => {
+    museumUpdate = (e) => {
         e.preventDefault();
-        this.props.updateMuseum(this.props.id);
+        console.log("hi",this.props.id)
+        this.props.museumUpdate(this.props.id);
+      }
+      museumCreate = (e) => {
+        e.preventDefault();
+        this.props.museumCreate(this.state.dataForm);
       }
     render() {
-      return ( <div>
+      return ( 
+      <div>
         <div className="details">
         <h3>{this.props.name}</h3>
         <img src={this.props.img} alt="image of the"></img>
@@ -18,8 +24,11 @@ class Museum extends React.Component {
         <p>{this.props.workTime}</p>
         <p>{this.props.location}</p>
         </div>
-        <button onClick={()=> this.deleteMuseum()} variant="outline-warning">Delete</button> 
-        <button onClick={()=> this.updateMuseum()} variant="outline-warning">Up-Date</button> 
+        <button onClick={(e)=> this.deleteMuseum(e)} variant="outline-warning">Delete</button> 
+        <Link to={'/museumUpdate/:'+ this.props.id} >UppppDate</Link>{" "}
+        {/* <button onClick={(e)=> this.museumUpdate(e)} variant="outline-warning">UppppDate</button>  */}
+        <Link to='/museumCreate/' >New</Link>
+        {/* <button onClick={(e)=> this.museumCreate(e)} variant="outline-warning">Create</button>  */}
    
         </div>
       );
