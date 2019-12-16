@@ -106,26 +106,37 @@ router.patch('/api/museums/:id', requireToken, removeBlanks, (req, res, next) =>
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
   // delete req.body.museum.owner
-console.log("FFFFFF");
-console.log(req.body);
+  Museum.findById(req.params.id, (error, museum) => {
+      if(!error){
+        museum.update(req.body.museum, (error, updatedMuseum)=>{
+          if(!error){
+            res.status(204).end();
+          } else {
+            res.status(500).json(error);
+          } 
+        });
+      } else {
+        res.status(500).json(error);
+      }
+  });
 
-  Museum.findById(req.params.id)
-    .then(handle404)
-    .then((museum) => {
-      
-      console.log(req.body.musuem);
-      console.log("dffdfd");
-      // pass the `req` object and the Mongoose record to `requireOwnership`
-      // it will throw an error if the current user isn't the owner
-      // requireOwnership(req, museum)
+  // Museum.findById(req.params.id)
+  //   .then(handle404)
+  //   .then((museum) => {
+  //     // pass the `req` object and the Mongoose record to `requireOwnership`
+  //     // it will throw an error if the current user isn't the owner
+  //     // requireOwnership(req, museum)
 
-      // pass the result of Mongoose's `.update` to the next `.then`
-      return museum.update(req.body.musuem)
-    })
-    // if that succeeded, return 204 and no JSON
-    .then(() => res.status(204).end())
-    // if an error occurs, pass it to the handler
-    .catch(next)
+  //     // pass the result of Mongoose's `.update` to the next `.then`
+  //     req.body.museum._id = req.params.id;
+  //     console.log("here I'm: ", req.body.museum)
+
+  //     return museum.update(req.body.musuem)
+  //   })
+  //   // if that succeeded, return 204 and no JSON
+  //   .then(() => res.status(204).end())
+  //   // if an error occurs, pass it to the handler
+  //   .catch(next)
 })
 /**
  * Action:      DESTROY

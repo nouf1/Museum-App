@@ -15,7 +15,7 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  museninfo : {
+  museum: {
     type: Schema.Types.ObjectId,
     ref: "Museum",
     required: true
