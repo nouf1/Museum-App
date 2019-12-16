@@ -79,10 +79,14 @@ router.get('/api/museums/:id', (req, res, next) => {
 */
 router.post('/api/museums', requireToken, (req, res, next) => {
   // set owner of new museum to be current user
+  console.log(req.user._id);
+  console.log(req.user._id);
   
-  req.body.museum.owner = req.user.id
+  req.body.musuem.owner = req.user._id
 
-  Museum.create(req.body.museum)
+console.log(req.body.musuem);
+
+  Museum.create(req.body.musuem)
     // respond to succesful `create` with status 201 and JSON of new "museum"
     .then((museum) => {
       res.status(201).json({ museum: museum.toObject() })
@@ -102,19 +106,21 @@ router.patch('/api/museums/:id', requireToken, removeBlanks, (req, res, next) =>
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
   // delete req.body.museum.owner
+console.log("FFFFFF");
+console.log(req.body);
 
   Museum.findById(req.params.id)
     .then(handle404)
     .then((museum) => {
-      console.log("dffdfd");
-      console.log(museum);
       
+      console.log(req.body.musuem);
+      console.log("dffdfd");
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      requireOwnership(req, museum)
+      // requireOwnership(req, museum)
 
       // pass the result of Mongoose's `.update` to the next `.then`
-      return museum.update(req.body.museum)
+      return museum.update(req.body.musuem)
     })
     // if that succeeded, return 204 and no JSON
     .then(() => res.status(204).end())
@@ -127,12 +133,14 @@ router.patch('/api/museums/:id', requireToken, removeBlanks, (req, res, next) =>
 * URI:          /api/museums/5a7db6c74d55bc51bdf39793
 * Description: Delete A Musium by Museum ID
  */
-router.delete('/api/museums/:id', requireToken, (req, res, next) => {
+router.delete('/api/museums/:id', (req, res, next) => {
+  console.log("hello: ",req.params.id)
+
   Museum.findById(req.params.id)
     .then(handle404)
     .then(museum => {
       // throw an error if current user doesn't own `museum`
-      requireOwnership(req, museum)
+      // requireOwnership(req, museum)
       // delete the museum ONLY IF the above didn't throw
       museum.remove()
     })
