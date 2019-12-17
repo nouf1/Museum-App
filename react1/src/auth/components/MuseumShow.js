@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter, Link, Redirect } from 'react-router-dom'
 import { show } from '../api';
+import Event from './Event';
+import Booking from './Booking'
 
 class MuseumShow extends Component {
     constructor(props) {
@@ -8,7 +10,8 @@ class MuseumShow extends Component {
 
         this.state = {
             museum: {},
-            event:[]
+            event:[],
+            book: false
         }
     }
     componentDidMount(){
@@ -24,10 +27,23 @@ class MuseumShow extends Component {
             console.log(err);
         })
     }
-    
+    booking(){
+        console.log(this.state.book)
+        this.setState({book: true}, ()=>{
+            this.setState({book:false})
+        })
+    }
     render() {
          
         const museum = this.props.museumList.find( m => m._id === this.props.match.params.id);
+        console.log(museum.events)
+        const event = museum.events.map(event =>{
+         return <Event title= {event.title}
+                           startDate={event.startDate}
+                           endDate={event.endDate}
+                           img={event.img}
+                            key={event._id} />
+        })
         const museumShow = museum && <React.Fragment>                  
         <h3>{museum.name}</h3>
         <img src={museum.img} alt="image of the"></img> 
@@ -35,17 +51,22 @@ class MuseumShow extends Component {
         <p>{museum.workTime}</p>
         <p>{museum.location}</p>
         </React.Fragment>
-        const events = museum && museum.events.map(event => {
-           return <li>{event.title}</li>
-         })
+        // const events = museum && museum.events.map(event => {
+        //    return <li>{event.title}</li>
+        //  })
         console.log("render", this.props);
         return (
             <div>
             {museumShow}
-            <Link to= '/Booking/'>  here </Link>    
+            {this.state.book && <Redirect to = {{
+                pathname: '/booking',
+                state: {id: this.props.match.params.id}
+            }}/>}
+            {/* <Link to= "/Booking/">  here </Link>     */}
+            <button onClick={()=>this.booking()}>Book</button>
                <br/>
                 <ul>
-                    {events}
+                    {event}
                 </ul>
             </div>
         )

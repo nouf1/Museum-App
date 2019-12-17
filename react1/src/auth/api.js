@@ -114,4 +114,43 @@ export const create = (user, newMuseum) => {
 
 
 
+export const showEvent = (id) => {
+  return axios({
+      method: 'GET',
+      url: apiUrl + `/api/museums/:id/events`
+  })
+}
 
+/**********************Booking ********************/
+
+export const createBooking = (user, newBooking,id) => {
+  console.log(user);
+  console.log(newMuseum);
+  
+  return axios({
+      method: 'POST',
+      url: apiUrl + '/api/booking/:id',
+      headers: {
+          'Authorization': `Bearer ${user.token}`
+      },
+      data: {
+        booking: newBooking
+          
+      }
+  })
+}
+
+
+export const showBooking = (id) => {
+  return axios({
+      method: 'GET',
+      url: apiUrl + `/api/Booking/${id}`
+  })
+}
+
+
+
+export const deleteBookingByID = function(id) {
+
+  return axios.delete(`${apiUrl}/api/Booking/${id}`);
+}

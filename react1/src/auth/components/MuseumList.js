@@ -63,6 +63,7 @@ museumCreate = (user, newMuseum) => {
                         deleteMuseum={this.deleteMuseum}
                         museumUpdate={this.museumUpdate}
                         museumCreate={this.museumCreate}
+                        event = {museum.event}
                         key={museum._id} />;
        
       });
