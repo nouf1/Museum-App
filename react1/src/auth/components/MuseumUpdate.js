@@ -12,11 +12,10 @@ class MuseumUpdate extends Component {
             workTime: '',
             location: '',
             events:''
-        
     }
+
     componentDidMount() {
         console.log("componentDidMount", this.props);
-        
         const MuseumId = this.props.match.params.id
         show(MuseumId)
             .then(res => {

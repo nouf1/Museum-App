@@ -13,6 +13,7 @@ import MuseumList from './auth/components/MuseumList'
 import MuseumUpdate from './auth/components/MuseumUpdate'
 import MuseumCreate from './auth/components/MuseumCreate'
 import MuseumShow from './auth/components/MuseumShow'
+import Booking from './auth/components/Booking'
 
 class App extends Component {
   constructor () {
@@ -81,6 +82,10 @@ class App extends Component {
           <Route exact path='/museumCreate' render={() => (
             <MuseumCreate user={user} museumCreate={this.state.museumCreate} 
             setMuseumCreate={this.setMuseumCreate} />
+          )} />
+
+<Route  path='/Booking/:id' render={() => (
+            <Booking user={user}  museum={this.state.museum}  />
           )} />
        
                   </React.Fragment>

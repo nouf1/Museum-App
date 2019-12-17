@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { show } from '../api';
 
 class MuseumShow extends Component {
@@ -7,7 +7,8 @@ class MuseumShow extends Component {
         super(props)
 
         this.state = {
-            museum: []
+            museum: {},
+            event:[]
         }
     }
     componentDidMount(){
@@ -25,19 +26,26 @@ class MuseumShow extends Component {
     }
     
     render() {
-
-         const events = this.state.museum.events.map(event => {
-            <li>{event.title}</li>
+         
+        const museum = this.props.museumList.find( m => m._id === this.props.match.params.id);
+        const museumShow = museum && <React.Fragment>                  
+        <h3>{museum.name}</h3>
+        <img src={museum.img} alt="image of the"></img> 
+        <p>{museum.description}</p>
+        <p>{museum.workTime}</p>
+        <p>{museum.location}</p>
+        </React.Fragment>
+        const events = museum && museum.events.map(event => {
+           return <li>{event.title}</li>
          })
         console.log("render", this.props);
         return (
             <div>
-                <h1>{this.state.museum.name}</h1>
+            {museumShow}
+            <Link to= '/Booking/'>  here </Link>    
+               <br/>
                 <ul>
-                    <img src={this.props.img} alt="image of the"></img> 
-                    <p>{this.props.title}</p>
-                    <p>{this.props.startDate}</p>
-                    <p>{this.props.endDate}</p>
+                    {events}
                 </ul>
             </div>
         )

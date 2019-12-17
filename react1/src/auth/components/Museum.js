@@ -27,7 +27,7 @@ class Museum extends React.Component {
         <p>{this.props.location}</p>
         </div>
         <button onClick={(e)=> this.deleteMuseum(e)} variant="outline-warning">Delete</button> 
-        <Link to={'/museumUpdate/:'+ this.props.id} >UppppDate</Link>{" "}
+        <Link to={'/museumUpdate/:'+ this.props.id} >Up-Date</Link>{" "}
         {/* <button onClick={(e)=> this.museumUpdate(e)} variant="outline-warning">UppppDate</button>  */}
         <Link to='/museumCreate/' >New</Link>
         {/* <button onClick={(e)=> this.museumCreate(e)} variant="outline-warning">Create</button>  */}

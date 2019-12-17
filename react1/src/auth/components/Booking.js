@@ -15,7 +15,7 @@ class Booking extends Component {
                     <p>{this.props.museum.description}</p>
                     <p>{this.props.museum.workTime}</p>
                     <p>{this.props.museum.location}</p>  
-               <button onClick={()=>this.props.HandleClear(booking)}> Cancel My Booking </button>
+               {/* <button onClick={()=>this.props.HandleClear(booking)}> Cancel My Booking </button> */}
                </div>
 
                 )

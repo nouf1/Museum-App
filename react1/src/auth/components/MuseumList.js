@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAllMuseumList, deleteMuseumByID, museumUpdateByID, museumCreate} from '../api';
+import { getAllMuseumList, deleteMuseumByID, museumUpdateByID, museumCreate, create} from '../api';
 import Museum from './Museum';
 
 class MuseumList extends React.Component {
@@ -38,15 +38,15 @@ class MuseumList extends React.Component {
       });
 }
 
-museumCreate = () => { 
-    // create(user,newMuseum)
-    // .then((response) => {
-    //     console.log("hello")
-    //     this.setState({ MuseumList: response.data})
-    // })
-    // .catch((error) => {
-    //     console.log(error);
-    //   });
+museumCreate = (user, newMuseum) => { 
+    create(user,newMuseum)
+    .then((response) => {
+        console.log("hello")
+        this.setState({ MuseumList: response.data})
+    })
+    .catch((error) => {
+        console.log(error);
+      });
 }
 
   render() {
