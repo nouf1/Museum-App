@@ -18,8 +18,10 @@ class Museum extends React.Component {
       return ( 
       <div>
         <div className="details">
-        <h3>{this.props.name}</h3>
-        <img src={this.props.img} alt="image of the"></img>
+        <Link to={'/museumShow/' + this.props.id }>
+            <h3>{this.props.name}</h3>
+        </Link>
+        <img src={this.props.img} alt="image of the"></img> 
         <p>{this.props.description}</p>
         <p>{this.props.workTime}</p>
         <p>{this.props.location}</p>
@@ -29,7 +31,8 @@ class Museum extends React.Component {
         {/* <button onClick={(e)=> this.museumUpdate(e)} variant="outline-warning">UppppDate</button>  */}
         <Link to='/museumCreate/' >New</Link>
         {/* <button onClick={(e)=> this.museumCreate(e)} variant="outline-warning">Create</button>  */}
-   
+
+        {/* This will be removed if not working */}
         </div>
       );
     }

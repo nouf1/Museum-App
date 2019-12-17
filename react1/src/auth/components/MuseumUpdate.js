@@ -15,6 +15,8 @@ class MuseumUpdate extends Component {
         
     }
     componentDidMount() {
+        console.log("componentDidMount", this.props);
+        
         const MuseumId = this.props.match.params.id
         show(MuseumId)
             .then(res => {

@@ -12,6 +12,7 @@ import Museum from './auth/components/Museum';
 import MuseumList from './auth/components/MuseumList'
 import MuseumUpdate from './auth/components/MuseumUpdate'
 import MuseumCreate from './auth/components/MuseumCreate'
+import MuseumShow from './auth/components/MuseumShow'
 
 class App extends Component {
   constructor () {
@@ -43,6 +44,7 @@ class App extends Component {
     const { alerts, user } = this.state
 
     return (
+      
       <React.Fragment>
         <Header user={user} />
         {alerts.map((alert, index) => (
@@ -70,6 +72,10 @@ class App extends Component {
           <Route  path='/museumUpdate/:id' render={() => (
             <MuseumUpdate user={user}  museumUpdate={this.state.museumUpdate} 
             setMuseumUpdate={this.setMuseumUpdate} />
+          )} />
+
+          <Route  path='/museumShow/:id' render={() => (
+            <MuseumShow user={user}  museumList={this.state.museumList}  />
           )} />
 
           <Route exact path='/museumCreate' render={() => (
