@@ -26,16 +26,18 @@ class MuseumShow extends Component {
     
     render() {
 
-        // const events = this.state.museum.events.map(event => {
-        //     <li>{event.name}</li>
-        // })
+         const events = this.state.museum.events.map(event => {
+            <li>{event.title}</li>
+         })
         console.log("render", this.props);
         return (
             <div>
                 <h1>{this.state.museum.name}</h1>
                 <ul>
-                    {/* Put your map result here ------------------------ */}
-                    {/* {events} */}
+                    <img src={this.props.img} alt="image of the"></img> 
+                    <p>{this.props.title}</p>
+                    <p>{this.props.startDate}</p>
+                    <p>{this.props.endDate}</p>
                 </ul>
             </div>
         )
