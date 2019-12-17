@@ -170,9 +170,9 @@ router.delete('/api/museums/:id', (req, res, next) => {
  * URI        : /api/museums/5a7db6c74d55bc51bdf39793/events *
  * Description: Get All events for an museum                  *
  *****************************************************************/
-router.get("/api/museums/:museumId/events", (request, response) => {
+router.get("/api/museums/:id/events", (request, response) => {
   const
-    museumId = request.params.museumId;
+    museumId = request.params.id;
 
     Museum.findById(museumId)
     .then(museum => {
@@ -209,10 +209,10 @@ router.get("/api/museums/:museumId/events", (request, response) => {
  * URI        : /api/museums/5a7db6c74d55bc51bdf39793/events/22ftr54t8mu4xx78sww9r774r *
  * Description: Get a event from an museum by event ID and museum ID                 *
  *******************************************************************************************/
-router.get("/api/museums/:museumId/events/:eventId", (request, response) => {
+router.get("/api/museums/:id/events/:id", (request, response) => {
   const
-    museumId = request.params.museumId,
-    eventId = request.params.eventId;
+    museumId = request.params.id,
+    eventId = request.params.id;
 
     Museum.findById(museumId)
     .then(museum => {
@@ -249,9 +249,9 @@ router.get("/api/museums/:museumId/events/:eventId", (request, response) => {
  * URI        : /api/museums/66ftr54t8fu4rr78sww9r334r/events *
  * Description: Create a new event for an museum              *
  *****************************************************************/
-router.post("/api/museums/:museumId/events", requireToken, (request, response) => {
+router.post("/api/museums/:id/events", requireToken, (request, response) => {
   const
-    museumId  = request.params.museumId,
+    museumId  = request.params.id,
     event    = request.body.event,
     newevent = new Event(event);
   // console.log(newevent);
@@ -293,7 +293,7 @@ router.post("/api/museums/:museumId/events", requireToken, (request, response) =
  * URI        : /api/museums/66ftr54t8fu4rr78sww9r334r/events/22ftr54t8mu4xx78sww9r774r *
  * Description: Update a event from an museum by event ID and museum ID              *
  *******************************************************************************************/
-router.patch("/api/museums/:museumId/events/:eventId", requireToken,  (request, response) => {
+router.patch("/api/museums/:id/events/:id", requireToken,  (request, response) => {
   const
     museumId  = request.params.museumId,
     eventId  = request.params.eventId,
@@ -340,10 +340,10 @@ router.patch("/api/museums/:museumId/events/:eventId", requireToken,  (request, 
  * URI        : /api/museums/66ftr54t8fu4rr78sww9r334r/events/22ftr54t8mu4xx78sww9r774r *
  * Description: Delete a event from an museum by event ID and museum ID              *
  *******************************************************************************************/
-router.delete("/api/museums/:museumId/events/:eventId", requireToken, (request, response) => {
+router.delete("/api/museums/:id/events/:id", requireToken, (request, response) => {
   const
-    museumId = request.params.museumId,
-    eventId = request.params.eventId;
+    museumId = request.params.id,
+    eventId = request.params.id;
 
   Museum.findById(museumId)
     .then(museum => {
@@ -374,6 +374,78 @@ router.delete("/api/museums/:museumId/events/:eventId", requireToken, (request, 
       response.status(500).json({ error: error });
     });
 });
+
+/****************************** BOOKING ************************/
+
+
+/**
+* Action:       SHOW
+* Method:       GET
+* URI:          /api/booking/id
+* Description:  Get A BookingMuseum by Museum ID
+*/
+router.get('/api/Booking/:id', (req, res, next) => {
+  // req.params.id will be set based on the `:id` in the route
+  Museum.findById(req.params.id)
+    .then(handle404)
+    // if `findById` is succesful, respond with 200 and "museum" JSON
+    .then((museum) => {
+      // pass the `req` object and the Mongoose record to `requireOwnership`
+      // it will throw an error if the current user isn't the owner
+      // requireOwnership(req, museum)
+    
+      res.status(200).json({ museum: museum.toObject() })
+    })
+    // if an error occurs, pass it to the handler
+    .catch(next)
+})
+/**
+ * Action:      CREATE
+ * Method:      POST
+ * URI:         /api/museums
+ * Description: Create a new Booking Museum
+*/
+router.post('/api/Booking', requireToken, (req, res, next) => {
+  // set owner of new museum to be current user
+  console.log(req.user._id);
+  console.log(req.user._id);
+  
+  req.body.musuem.owner = req.user._id
+
+console.log(req.body.musuem);
+
+  Museum.create(req.body.musuem)
+    // respond to succesful `create` with status 201 and JSON of new "museum"
+    .then((museum) => {
+      res.status(201).json({ museum: museum.toObject() })
+    })
+    // if an error occurs, pass it off to our error handler
+    // the error handler needs the error message and the `res` object so that it
+    // can send an error message back to the client
+    .catch(next)
+})
+/**
+ * Action:      DESTROY
+ * Method:      DELETE
+* URI:          /api/museums/5a7db6c74d55bc51bdf39793
+* Description: Delete A Booking Musium by Museum ID
+ */
+router.delete('/api/Booking/:id', (req, res, next) => {
+  console.log("hello: ",req.params.id)
+
+  Museum.findById(req.params.id)
+    .then(handle404)
+    .then(museum => {
+      // throw an error if current user doesn't own `museum`
+      // requireOwnership(req, museum)
+      // delete the museum ONLY IF the above didn't throw
+      museum.remove()
+    })
+    // send back 204 and no content if the deletion succeeded
+    .then(() => res.sendStatus(204))
+    // if an error occurs, pass it to the handler
+    .catch(next)
+})
 
 
 module.exports = router
