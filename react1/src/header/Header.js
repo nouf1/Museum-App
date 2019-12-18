@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 // import Contact from './contact'
 import './Header.scss'
 // import './App.css';
@@ -15,7 +16,8 @@ const authenticatedOptions = (
 
 const unauthenticatedOptions = (
   <React.Fragment>
-    <div className="navbar">
+    {/* <nav class="navbar navbar-expand-lg navbar-dark bg-primary"></nav> */}
+    <div className="navbars">
     <Link to="/sign-up">Sign Up</Link>
     <Link to="/sign-in">Sign In</Link>
     </div>
@@ -25,9 +27,9 @@ const unauthenticatedOptions = (
 const alwaysOptions = (
   <React.Fragment>
      <div className="navbar">
-    <Link to="/entro">Home</Link>
-    <Link to="/museumList">Explor</Link>
-    <Link to="/contact">About Us</Link>
+    {/* <Link to="/entro">Home</Link> */}
+    {/* <Link to="/museumList">Explor</Link> */}
+    {/* <Link to="/contact">About Us</Link> */}
     </div>
   </React.Fragment>
 )
@@ -35,6 +37,11 @@ const alwaysOptions = (
 
 const Header = ({ user }) => (
   <header className="main-header">
+    <div id="wrapperHeader">
+</div>
+    <Link to="/entro">Home</Link>
+    <Link to="/contact">About Us</Link>
+  
     <nav>
       { user && <span>Welcome {user.email}</span>}
       { user ? authenticatedOptions : unauthenticatedOptions }

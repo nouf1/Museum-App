@@ -15,7 +15,8 @@ import MuseumCreate from './auth/components/MuseumCreate'
 import MuseumShow from './auth/components/MuseumShow'
 import Booking from './auth/components/Booking'
 import Contact from './Contact'
-// import Entro from './entro'
+import Entro from './entro/Entro'
+// import 'bootswatch/dist/slate/bootstrap.min.css'; 
 
 class App extends Component {
   constructor () {
@@ -97,9 +98,9 @@ class App extends Component {
             <Contact/>
           )} />
 
- {/* <Route  path='/entro' render={() => (
+ <Route  path='/entro' render={() => (
              <Entro/>
-           )} /> */}
+           )} />
 
           <Route  path='/museumList' render={() => (
             <MuseumList  museumList={this.state.museumList} 
