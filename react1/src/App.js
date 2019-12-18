@@ -14,6 +14,8 @@ import MuseumUpdate from './auth/components/MuseumUpdate'
 import MuseumCreate from './auth/components/MuseumCreate'
 import MuseumShow from './auth/components/MuseumShow'
 import Booking from './auth/components/Booking'
+import Contact from './Contact'
+// import Entro from './entro'
 
 class App extends Component {
   constructor () {
@@ -65,10 +67,13 @@ class App extends Component {
             <ChangePassword alert={this.alert} user={user} />
           )} />
         </main>
-        <Route exact path='/' render={() => (
+        {/* <Route exact path='/' render={() => (
+            <Entro/>
+          )}/> */}
+        {/* <Route exact path='/' render={() => (
             <MuseumList  museumList={this.state.museumList} 
             setMuseumList={this.setMuseumList} />
-          )} />
+          )} /> */}
 
           <Route  path='/museumUpdate/:id' render={() => (
             <MuseumUpdate user={user}  museumUpdate={this.state.museumUpdate} 
@@ -84,10 +89,22 @@ class App extends Component {
             setMuseumCreate={this.setMuseumCreate} />
           )} />
 
-<Route  path='/booking' render={() => (
+          <Route  path='/booking' render={() => (
             <Booking user={user}  museum={this.state.museum}  />
           )} />
-       
+
+          <Route  path='/contact' render={() => (
+            <Contact/>
+          )} />
+
+ {/* <Route  path='/entro' render={() => (
+             <Entro/>
+           )} /> */}
+
+          <Route  path='/museumList' render={() => (
+            <MuseumList  museumList={this.state.museumList} 
+            setMuseumList={this.setMuseumList} />
+          )} />
                   </React.Fragment>
     );
   }

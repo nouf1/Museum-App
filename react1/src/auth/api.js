@@ -125,7 +125,7 @@ export const showEvent = (id) => {
 
 export const createBooking = (user, newBooking,id) => {
   console.log(user);
-  console.log(newMuseum);
+  // console.log(newMuseum);
   
   return axios({
       method: 'POST',

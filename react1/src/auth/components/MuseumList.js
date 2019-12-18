@@ -1,6 +1,7 @@
 import React from 'react';
 import { getAllMuseumList, deleteMuseumByID, museumUpdateByID, museumCreate, create} from '../api';
 import Museum from './Museum';
+// import Entro from './entro'
 
 class MuseumList extends React.Component {
   componentDidMount() {
