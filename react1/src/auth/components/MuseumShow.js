@@ -32,11 +32,17 @@ class MuseumShow extends Component {
         this.setState({book: true}, ()=>{
             this.setState({book:false})
         })
+        // this.props.history.push({
+        //     pathname:`/booking/${this.props.match.params.id}`,
+        //     state:{
+        //         key:"value"
+        //      }
+        //    });
     }
     render() {
          
         const museum = this.props.museumList.find( m => m._id === this.props.match.params.id);
-        console.log(museum.events)
+        // console.log(museum.events)
         const event = museum.events.map(event =>{
          return <Event title= {event.title}
                            startDate={event.startDate}
@@ -50,6 +56,7 @@ class MuseumShow extends Component {
         <p>{museum.description}</p>
         <p>{museum.workTime}</p>
         <p>{museum.location}</p>
+        <Link to={`/booking/${museum._id}`} >Book</Link>
         </React.Fragment>
         // const events = museum && museum.events.map(event => {
         //    return <li>{event.title}</li>
@@ -58,10 +65,10 @@ class MuseumShow extends Component {
         return (
             <div>
             {museumShow}
-            {this.state.book && <Redirect to = {{
-                pathname: '/booking',
-                state: {id: this.props.match.params.id}
-            }}/>}
+            {/* {this.state.book && <Redirect to = {{
+                pathname: '/booking/'+ museum._id,
+                state: {id: "this.props.match.params.id"}
+            }}/>} */}
             {/* <Link to= "/Booking/">  here </Link>     */}
             <button onClick={()=>this.booking()}>Book</button>
                <br/>

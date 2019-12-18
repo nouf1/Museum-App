@@ -123,18 +123,18 @@ export const showEvent = (id) => {
 
 /**********************Booking ********************/
 
-export const createBooking = (user, newBooking,id) => {
+export const createBooking = (user, newBooking) => {
   console.log(user);
   // console.log(newMuseum);
   
   return axios({
       method: 'POST',
-      url: apiUrl + '/api/booking/:id',
+      url: apiUrl + '/api/booking',
       headers: {
           'Authorization': `Bearer ${user.token}`
       },
       data: {
-        booking: newBooking
+        musuem: newBooking
           
       }
   })

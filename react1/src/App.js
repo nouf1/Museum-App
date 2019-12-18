@@ -89,8 +89,8 @@ class App extends Component {
             setMuseumCreate={this.setMuseumCreate} />
           )} />
 
-          <Route  path='/booking' render={() => (
-            <Booking user={user}  museum={this.state.museum}  />
+          <Route  path='/booking/:id' render={(...props) => (
+            <Booking user={user} {...props}   museum={this.state.museum}  />
           )} />
 
           <Route  path='/contact' render={() => (
