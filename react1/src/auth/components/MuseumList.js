@@ -1,19 +1,11 @@
 import React from 'react';
 import { getAllMuseumList, deleteMuseumByID, museumUpdateByID, museumCreate, create} from '../api';
 import Museum from './Museum';
-// import Entro from './entro'
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBContainer } from
+"mdbreact";
 
 class MuseumList extends React.Component {
-  componentDidMount() {
-    getAllMuseumList()
-      .then((response) => {
-         
-        this.props.setMuseumList(response.data.museums);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+
     deleteMuseum = (id) => {
         deleteMuseumByID(id)
       .then((response) => {
@@ -57,16 +49,35 @@ museumCreate = (user, newMuseum) => {
 
     if (this.props.museumList.length > 0) {
         allMuseumList = this.props.museumList.map((museum, index) => {
-        return <Museum name={museum.name}
+          console.log(museum.length);
+          console.log('IM HERE: ', index);
+        return (
+        <div>
+      <MDBContainer>
+      <MDBCarousel
+        activeItem={"1"}
+        length={museum.length}
+        showControls={true}
+        showIndicators={true}
+        className="z-depth-1"
+      >
+        <MDBCarouselInner>
+        <Museum name={museum.name}
                         img={museum.img}
-                        description={museum.description}
+                        // description={museum.description}
                         id={museum._id}
                         deleteMuseum={this.deleteMuseum}
                         museumUpdate={this.museumUpdate}
                         museumCreate={this.museumCreate}
                         event = {museum.event}
-                        key={museum._id} />;
-       
+                        key={museum._id}
+                        index={index}
+                         />
+                        </MDBCarouselInner>
+                        </MDBCarousel>
+                        </MDBContainer>
+                        </div>
+       )
       });
     }
 

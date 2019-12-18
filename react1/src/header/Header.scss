@@ -41,9 +41,9 @@ $charcoal: #bbb;
 
 div#wrapperHeader {
   width:10%;
-  height:60px; /* height of the background image? */
-  background:url(../img/entro.png) repeat-x 0 0;
-  text-align:center;
+  height:10%; /* height of the background image? */
+  background:url(../img/black.png);
+  text-align:left;
  }
 
 @media (max-width: 600px) {

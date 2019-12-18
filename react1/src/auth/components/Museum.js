@@ -1,5 +1,8 @@
 import React from 'react'
 import {Link} from "react-router-dom"
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBContainer } from
+"mdbreact";
+
 class Museum extends React.Component {
     deleteMuseum = (e) => {
       e.preventDefault();
@@ -18,17 +21,27 @@ class Museum extends React.Component {
       return (
         
       <div>
+
           {console.log(this.props.event) }
+          
         <div className="details">
         <Link to={'/museumShow/' + this.props.id }>
             <h3>{this.props.name}</h3>
         </Link>
-        <img src={this.props.img} alt="image of the"></img> 
+        <MDBCarouselItem itemId={this.props.index}>
+            <MDBView>
+        
+        <img src={this.props.img} width= "670px" height="395px" alt="image of the"></img> 
+        </MDBView>
+        </MDBCarouselItem>
+        
         <p>{this.props.description}</p>
         <p>{this.props.workTime}</p>
         <p>{this.props.location}</p>
+       
         </div>
         <button onClick={(e)=> this.deleteMuseum(e)} variant="outline-warning">Delete</button> 
+
         <Link to={'/museumUpdate/:'+ this.props.id} >UpDate</Link>{" "}
        
         {/* <button onClick={(e)=> this.museumUpdate(e)} variant="outline-warning">UppppDate</button>  */}

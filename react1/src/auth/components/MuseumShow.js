@@ -70,7 +70,7 @@ class MuseumShow extends Component {
                 state: {id: "this.props.match.params.id"}
             }}/>} */}
             {/* <Link to= "/Booking/">  here </Link>     */}
-            <button onClick={()=>this.booking()}>Book</button>
+            {/* <button onClick={()=>this.booking()}>Book</button> */}
                <br/>
                 <ul>
                     {event}

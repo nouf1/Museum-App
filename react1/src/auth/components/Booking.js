@@ -49,7 +49,7 @@ class Booking extends Component {
         const newbook = this.state.musuem
 
         const id = this.props[0].match.params.id
-        createBooking(user, newbook);
+        createBooking(id,user, newbook);
         
         
         // (user, newBooking, id)

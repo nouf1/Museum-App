@@ -123,7 +123,7 @@ export const showEvent = (id) => {
 
 /**********************Booking ********************/
 
-export const createBooking = (user, newBooking) => {
+export const createBooking = (museumId,user, newBooking) => {
   console.log(user);
   // console.log(newMuseum);
   
@@ -134,17 +134,19 @@ export const createBooking = (user, newBooking) => {
           'Authorization': `Bearer ${user.token}`
       },
       data: {
-        musuem: newBooking
+        museumId: museumId,
+        userId: user._id,
+        booking: newBooking
           
       }
   })
 }
 
 
-export const showBooking = (id) => {
+export const getBooking = (id) => {
   return axios({
       method: 'GET',
-      url: apiUrl + `/api/Booking/${id}`
+      url: apiUrl + `/api/bookings/${id}`
   })
 }
 

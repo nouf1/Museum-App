@@ -16,6 +16,9 @@ import MuseumShow from './auth/components/MuseumShow'
 import Booking from './auth/components/Booking'
 import Contact from './Contact'
 import Entro from './entro/Entro'
+import MyBooking from './auth/components/MyBooking'
+import {getAllMuseumList} from './auth/api'
+// import footer from './footer/Footer'
 // import 'bootswatch/dist/slate/bootstrap.min.css'; 
 
 class App extends Component {
@@ -31,7 +34,16 @@ class App extends Component {
   // setMuseum = (museum) => {
   //   this.setState({ museum: museum});
   // }
-
+componentDidMount() {
+  getAllMuseumList()
+  .then((response) => {
+     
+    this.setMuseumList(response.data.museums);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+}
   setMuseumList = (museumList) => {
     this.setState({ museumList: museumList});
   }
@@ -88,6 +100,9 @@ class App extends Component {
           <Route exact path='/museumCreate' render={() => (
             <MuseumCreate user={user} museumCreate={this.state.museumCreate} 
             setMuseumCreate={this.setMuseumCreate} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/myBooking' render={() => (
+            <MyBooking user={user} museumList={this.state.museumList} />
           )} />
 
           <Route  path='/booking/:id' render={(...props) => (

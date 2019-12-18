@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+// import logo from './black.png'
 // import Contact from './contact'
 import './Header.scss'
 // import './App.css';
@@ -34,10 +34,18 @@ const alwaysOptions = (
   </React.Fragment>
 )
 
+{/* <div id="navbar">
+  <a href="#default" id="logo">CompanyLogo</a>
+  <div id="navbar-right">
+    <a class="active" href="#home">Home</a>
+    <a href="#contact">Contact</a>
+    <a href="#about">About</a>
+  </div> */}
 
 const Header = ({ user }) => (
   <header className="main-header">
     <div id="wrapperHeader">
+      {/* <img src={logo} height='30px'/> */}
 </div>
     <Link to="/entro">Home</Link>
     <Link to="/contact">About Us</Link>
