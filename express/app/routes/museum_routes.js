@@ -405,12 +405,16 @@ router.get('/api/Booking/:id', (req, res, next) => {
  * URI:         /api/museums
  * Description: Create a new Booking Museum
 */
-router.post('/api/Booking', requireToken, (req, res, next) => {
+router.post('/api/booking', requireToken, (req, res, next) => {
   // set owner of new museum to be current user
   console.log(req.user._id);
   console.log(req.user._id);
+  console.log("======");
+  console.log(req.body)
+  
   
   req.body.musuem.owner = req.user._id
+console.log("+++++++");
 
 console.log(req.body.musuem);
 
