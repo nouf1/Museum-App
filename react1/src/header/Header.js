@@ -11,26 +11,28 @@ const authenticatedOptions = (
   <React.Fragment>
     <Link to="/change-password">Change Password</Link>
     <Link to="/sign-out">Sign Out</Link>
+    <Link to="/MyBooking">My Booking</Link>
   </React.Fragment>
 )
 
 const unauthenticatedOptions = (
   <React.Fragment>
     {/* <nav class="navbar navbar-expand-lg navbar-dark bg-primary"></nav> */}
-    <div className="navbars">
+    {/* <div className="navbars"> */}
+    {/* <nav class="p-3 mb-2 bg-warning text-dark"> */}
     <Link to="/sign-up">Sign Up</Link>
     <Link to="/sign-in">Sign In</Link>
-    </div>
+    {/* </nav> */}
   </React.Fragment>
 )
 
 const alwaysOptions = (
   <React.Fragment>
-     <div className="navbar">
+     {/* <div className="navbar"> */}
     {/* <Link to="/entro">Home</Link> */}
     {/* <Link to="/museumList">Explor</Link> */}
     {/* <Link to="/contact">About Us</Link> */}
-    </div>
+    {/* </div> */}
   </React.Fragment>
 )
 
@@ -44,12 +46,19 @@ const alwaysOptions = (
 
 const Header = ({ user }) => (
   <header className="main-header">
-    <div id="wrapperHeader">
-      {/* <img src={logo} height='30px'/> */}
+    <div id="logo">
 </div>
-    <Link to="/entro">Home</Link>
+{/* <nav class="p-3 mb-2 bg-warning text-dark"> */}
+<Link to="/entro">Home</Link>
+<Link to="/museumList">Explor</Link>
     <Link to="/contact">About Us</Link>
-  
+{/* </nav> */}
+{/* <Link className="btn" to={"/museumList"}>
+        <button>
+          <h3>- EXPLOR -</h3>
+        </button>
+      </Link> */}
+   
     <nav>
       { user && <span>Welcome {user.email}</span>}
       { user ? authenticatedOptions : unauthenticatedOptions }

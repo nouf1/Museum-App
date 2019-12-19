@@ -8,7 +8,6 @@ $charcoal: #bbb;
 
 }
 
-
 .navbars{
   display:flex;
   flex-grow: 1;
@@ -17,20 +16,27 @@ $charcoal: #bbb;
 }
 
 
+#logo {
+  width: 120px;
+  height: 112px;
+  background: url(out.png) no-repeat 0 0;
+}
 
 .main-header {
+  color: white;
   align-items: center;
   border-bottom: 1px solid $charcoal;
   display: flex;
   height: 100px;
   padding: 0 20px;
-
+background-color:rgb(243, 239, 219);
+}
   a,
   span {
     font-size: 1.2em;
     margin: 0 15px;
   }
-}
+
 
 .main-header > nav {
   align-items: center;
@@ -73,3 +79,4 @@ div#wrapperHeader {
     }
   }
 }
+// <div class="p-3 mb-2 bg-warning text-dark">.bg-warning</div>

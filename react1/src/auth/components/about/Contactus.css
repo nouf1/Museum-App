@@ -1,0 +1,23 @@
+.contact-container{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-bottom: 4%;
+    margin-top: 6%;
+    text-align: center;
+    color:black;
+    min-height: 100vh;
+}
+.contact{
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(185, 185, 141); 
+    opacity: 0.7; 
+    padding-top: 30px; 
+    padding-right: 30px; 
+    padding-left: 30px;
+    padding-bottom: 10px;
+    border-radius: 25px;
+    margin-left: 30%;
+    margin-right: 30%;
+    font-size: 16px;
+    min-height: 100vh;
+}

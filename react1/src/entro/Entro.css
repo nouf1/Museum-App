@@ -1,21 +1,23 @@
-.entro {
+/* .entro {
     color:white;
     background-image: url(../img/entro.png);
     background-repeat: no-repeat;
     background-size: cover;
     height: 1000px;
-  }
+  } */
 
 
-.home-container {   
-display: flex;   
-justify-content: center;  
-margin-top: 30%;
+.home-container {
+  background-image: url(../img/entro1.jpg);   
+  color:white;
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
+  height: 1000px;
 }
 
-.btn{
+/* .btn{
   color: brown;
-}
+} */
 
 @media (max-width: 600px) {    
 .home-container {     
@@ -24,3 +26,12 @@ margin-top: 30%;
 }   
 
  }
+ .btn {
+  -webkit-transition-duration: 0.4s; 
+  transition-duration: 0.4s;
+}
+
+.btn:hover {
+  background-color:rgb(179, 120, 44); 
+  color: white;
+}

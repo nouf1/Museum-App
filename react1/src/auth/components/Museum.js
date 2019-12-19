@@ -1,57 +1,79 @@
-import React from 'react'
-import {Link} from "react-router-dom"
-import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBContainer } from
-"mdbreact";
+import React from "react";
+import { Link } from "react-router-dom";
+import './StyleMuseum.css';
+import {
+  MDBCarousel,
+  MDBCarouselInner,
+  MDBCarouselItem,
+  MDBView,
+  MDBContainer
+} from "mdbreact";
 
 class Museum extends React.Component {
-    deleteMuseum = (e) => {
-      e.preventDefault();
-      this.props.deleteMuseum(this.props.id);
-    }
-    museumUpdate = (e) => {
-        e.preventDefault();
-        console.log("hi",this.props.id)
-        this.props.museumUpdate(this.props.id);
-      }
-      museumCreate = (e) => {
-        e.preventDefault();
-        this.props.museumCreate(this.state.dataForm);
-      }
-    render() {
-      return (
-        
+  deleteMuseum = e => {
+    e.preventDefault();
+    this.props.deleteMuseum(this.props.id);
+  };
+  museumUpdate = e => {
+    e.preventDefault();
+    console.log("hi", this.props.id);
+    this.props.museumUpdate(this.props.id);
+  };
+  museumCreate = e => {
+    e.preventDefault();
+    this.props.museumCreate(this.state.dataForm);
+  };
+  render() {
+    return (
       <div>
+        <div className="card">
+          <div class="embed-responsive embed-responsive-16by9">
+          <img
+            className="card-img-top"
+            src={this.props.img}
+            alt="image of the"
+          />
+          </div>
+          <div className="card-body">
+            <h5 className="card-title">
+              <Link to={"/museumShow/" + this.props.id}>
+                <h3>{this.props.name}</h3>
+              </Link>
+            </h5>
+            <p className="card-text">{this.props.description}</p>
+          </div>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">{this.props.workTime}</li>
+            <li className="list-group-item">{this.props.location}</li>
+          </ul>
+          <div className="card-body">
+          {/* <button type="button" class="btn btn-outline-warning" onClick={e => this.museumUpdate(e)} variant="outline-warning">
+              Update
+            </button> */}
+            
+            <Link className="card-link" to={"/museumUpdate/:" + this.props.id}>
+              UpDate
+            </Link>
+            
+            {/* <button type="button" class="btn btn-outline-warning" onClick={e => this.museumCreate(e)} variant="outline-warning">
+              New
+            </button> */}
 
-          {console.log(this.props.event) }
-          
-        <div className="details">
-        <Link to={'/museumShow/' + this.props.id }>
-            <h3>{this.props.name}</h3>
-        </Link>
-        <MDBCarouselItem itemId={this.props.index}>
-            <MDBView>
-        
-        <img src={this.props.img} width= "670px" height="395px" alt="image of the"></img> 
-        </MDBView>
-        </MDBCarouselItem>
-        
-        <p>{this.props.description}</p>
-        <p>{this.props.workTime}</p>
-        <p>{this.props.location}</p>
-       
+            <Link className="card-link" to="/museumCreate/">
+              New
+            </Link>
+
+            <button type="button" class="btn btn-outline-warning" onClick={e => this.deleteMuseum(e)} variant="outline-warning">
+              Delete
+            </button>
+          </div>
         </div>
-        <button onClick={(e)=> this.deleteMuseum(e)} variant="outline-warning">Delete</button> 
-
-        <Link to={'/museumUpdate/:'+ this.props.id} >UpDate</Link>{" "}
-       
-        {/* <button onClick={(e)=> this.museumUpdate(e)} variant="outline-warning">UppppDate</button>  */}
-        <Link to='/museumCreate/' >New</Link>
-        {/* <button onClick={(e)=> this.museumCreate(e)} variant="outline-warning">Create</button>  */}
-
+        {/* <button onClick={(e)=> this.museumUpdate(e)} variant="outline-warning">UppppDate</button> */}
+        {/* <button type="button" class="btn btn-outline-warning" onClick={(e)=> this.museumCreate(e)} variant="outline-warning">Create</button>  */}
         {/* This will be removed if not working */}
-        </div>
-      );
-    }
+      </div>
+    );
   }
-  
-  export default Museum;
+}
+
+export default Museum;

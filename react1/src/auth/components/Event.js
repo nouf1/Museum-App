@@ -29,11 +29,16 @@ class Event extends Component {
     render() {
         // const e = this.props.museumList._id.events
         // const events = e && e.events.map(event => {
-            return ( <div>
-            <img src={this.props.img} width= "500px" height="395px" alt="image of the"></img> 
-            <li>{this.props.title}</li>
-            <li>{this.props.startDate}</li>
-            <li>{this.props.endDate}</li>
+            return ( 
+            <div>
+                <div className="card">
+            <img className="card-img-top" src={this.props.img} width="500px" height="395px" alt="image of the"/>
+            <div className="card-body">
+            <li className="card-title">{this.props.title}</li>
+            <li className="list-group-item">{this.props.startDate}</li>
+            <li className="list-group-item">{this.props.endDate}</li>
+                    </div>
+                    </div>
                     </div>)
         //   }
         //   )
