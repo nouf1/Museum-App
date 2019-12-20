@@ -8,15 +8,16 @@
   } */
   .container-signin{
     /* background-image:url("we.jpg") ; */
-    background: transparent url('we.png') no-repeat center center fixed;
-    /* -webkit-background-size: cover;
+    background: transparent url('./entro.png') center center fixed;
+    -webkit-background-size: cover;
     -moz-background-size: cover;
-    -o-background-size: cover; */
+    -o-background-size: cover;
     background-size: cover;
+    height: 600px;
   }
   .card-signin {
-    border: 0;
-    border-radius: 1rem;
+    border: 2rem;
+    border-radius: 5rem;
     box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
   }
   .card-signin .card-title {
@@ -25,14 +26,14 @@
     font-size: 1.5rem;
   }
   .card-signin .card-body {
-    padding: 2rem;
+    padding: 5rem;
   }
   .card-signin .form-signin {
     width: 100%;
     background: white;
   }
   .form-signin .btn {
-    font-size: 80%;
+    font-size: 100%;
     border-radius: 5rem;
     letter-spacing: .1rem;
     font-weight: bold;

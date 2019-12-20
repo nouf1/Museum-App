@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './StyleMuseum.css';
+// import './StyleMuseum.css';
 import {
   MDBCarousel,
   MDBCarouselInner,
@@ -30,7 +30,7 @@ class Museum extends React.Component {
           <div class="embed-responsive embed-responsive-16by9">
           <img
             className="card-img-top"
-            src={this.props.img}
+            src={this.props.img} width="700px" height='100%'
             alt="image of the"
           />
           </div>

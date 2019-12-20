@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Button, Container, Col } from 'react-bootstrap';
 import MyBooking from './MyBooking';
 import { createBooking } from '../api'
-
+import {withRouter}  from  'react-router-dom'
 class Booking extends Component {
     state = {
         musuem: {
@@ -49,7 +49,10 @@ class Booking extends Component {
         const newbook = this.state.musuem
 
         const id = this.props[0].match.params.id
-        createBooking(id,user, newbook);
+        createBooking(id,user, newbook)
+        .then(res => {
+            this.props.history.push('/MyBooking')
+        });
         
         
         // (user, newBooking, id)
@@ -114,4 +117,4 @@ class Booking extends Component {
  );
 }
 }
-export default Booking;  
+export default withRouter(Booking);  

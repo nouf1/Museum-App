@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 
 import { signIn } from '../api'
 import messages from '../messages'
+import '../components/SignIn.css'
 
 class SignIn extends Component {
   constructor () {

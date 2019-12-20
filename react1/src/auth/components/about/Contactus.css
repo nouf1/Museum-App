@@ -1,23 +1,28 @@
 .contact-container{
     font-family: Georgia, 'Times New Roman', Times, serif;
-    margin-bottom: 4%;
-    margin-top: 6%;
+    /* margin-bottom: 4%; */
     text-align: center;
     color:black;
-    min-height: 100vh;
+    /* min-height: 100vh; */
+    background: transparent url('../entro.png') center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 .contact{
     text-align: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
     background-color: rgb(185, 185, 141); 
-    opacity: 0.7; 
+    opacity: 0.5; 
     padding-top: 30px; 
     padding-right: 30px; 
     padding-left: 30px;
     padding-bottom: 10px;
-    border-radius: 25px;
+    /* border-radius: 25px; */
     margin-left: 30%;
     margin-right: 30%;
     font-size: 16px;
     min-height: 100vh;
+    /* margin-top: 6%; */
 }

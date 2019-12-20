@@ -21,7 +21,7 @@ const unauthenticatedOptions = (
     {/* <div className="navbars"> */}
     {/* <nav class="p-3 mb-2 bg-warning text-dark"> */}
     <Link to="/sign-up">Sign Up</Link>
-    <Link to="/sign-in">Sign In</Link>
+    <Link to="/sign-in">Log In</Link>
     {/* </nav> */}
   </React.Fragment>
 )

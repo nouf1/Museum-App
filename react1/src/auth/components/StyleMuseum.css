@@ -1,5 +1,9 @@
-.card-img-top {
-    width: 100%;
-    height: 15vw;
-    object-fit: cover;
+
+.card {
+    color: rgb(41, 23, 13) !important;
+    font-family: 'Acme', sans-serif;
+}
+.one {
+    border: 20px black;
+    justify-content: center;
 }

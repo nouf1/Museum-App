@@ -3,6 +3,7 @@ import { withRouter, Link, Redirect } from 'react-router-dom'
 import { show } from '../api';
 import Event from './Event';
 import Booking from './Booking'
+import '../components/StyleMuseum.css'
 
 class MuseumShow extends Component {
     constructor(props) {
@@ -50,13 +51,14 @@ class MuseumShow extends Component {
                            img={event.img}
                             key={event._id} />
         })
+    
         const museumShow = museum && <React.Fragment>                  
-        <h3>{museum.name}</h3>
-        <img src={museum.img} alt="image of the"></img> 
-        <p>{museum.description}</p>
-        <p>{museum.workTime}</p>
-        <p>{museum.location}</p>
-        <Link to={`/booking/${museum._id}`} >Book</Link>
+        <h3 className='one'>{museum.name}</h3>
+        <img src={museum.img} className='one' alt="image of the"></img> 
+        <p className='one'>{museum.description} </p>
+        <p className='one'>{museum.workTime}</p>
+        <p className='one'>{museum.location}</p>
+        <Link to={`/booking/${museum._id}`} className='one'>Book</Link>
         </React.Fragment>
         // const events = museum && museum.events.map(event => {
         //    return <li>{event.title}</li>
@@ -64,7 +66,9 @@ class MuseumShow extends Component {
         console.log("render", this.props);
         return (
             <div>
+                 <div className="col-4">
             {museumShow}
+            </div>
             {/* {this.state.book && <Redirect to = {{
                 pathname: '/booking/'+ museum._id,
                 state: {id: "this.props.match.params.id"}
@@ -72,9 +76,13 @@ class MuseumShow extends Component {
             {/* <Link to= "/Booking/">  here </Link>     */}
             {/* <button onClick={()=>this.booking()}>Book</button> */}
                <br/>
+               
                 <ul>
+                
                     {event}
+                    
                 </ul>
+                
             </div>
         )
      }

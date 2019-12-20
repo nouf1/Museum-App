@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Link} from "react-router-dom"
 import { showEvent } from '../api'
 import MuseumShow from './MuseumShow'
+import '../components/eveee.css'
 
 class Event extends Component {
     constructor(props) {
@@ -30,16 +31,17 @@ class Event extends Component {
         // const e = this.props.museumList._id.events
         // const events = e && e.events.map(event => {
             return ( 
-            <div>
-                <div className="card">
-            <img className="card-img-top" src={this.props.img} width="500px" height="395px" alt="image of the"/>
-            <div className="card-body">
-            <li className="card-title">{this.props.title}</li>
-            <li className="list-group-item">{this.props.startDate}</li>
-            <li className="list-group-item">{this.props.endDate}</li>
+            <div className="card-container">
+                <div className="card-ev">
+            <img src={this.props.img} width="700px" alt="image of the"/>
+            <div className="container">
+            <li>{this.props.title}</li>
+            <li>{this.props.startDate}</li>
+            <li>{this.props.endDate}</li>
                     </div>
                     </div>
-                    </div>)
+                    </div>
+                    )
         //   }
         //   )
 

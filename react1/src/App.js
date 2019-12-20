@@ -21,6 +21,8 @@ import { getAllMuseumList } from "./auth/api";
 import Footer from "./footer/Footer";
 // import footer from './footer/Footer'
 // import 'bootswatch/dist/slate/bootstrap.min.css';
+// import './auth/components/eveee.css'
+import './App.scss'
 
 class App extends Component {
   constructor() {
