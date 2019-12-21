@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema({
   token: String
 }, 
 {
+  usePushEach: true,
   timestamps: true,
   toObject: {
     // remove `hashedPassword` field when we call `.toObject`

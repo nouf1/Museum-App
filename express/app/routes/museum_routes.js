@@ -6,6 +6,8 @@ const passport = require('passport')
 // pull in Mongoose model for museum
 const Museum = require('../models/museum').Museum
 const Event = require('../models/museum').Event
+const User = require('../models/user').User
+const Booking = require('../models/user').Booking
 // pull in Mongoose model for event
 // const Event = require("../models/event").Event;
 
@@ -377,6 +379,23 @@ router.delete("/api/museums/:id/events/:id", requireToken, (request, response) =
 
 /****************************** BOOKING ************************/
 
+/**
+* Action:       INDEX
+* Method:       GET
+* URI:          /api/booking
+* Description:  Get all Bookings
+*/
+router.get('/api/bookings/:id', (req, res) => {
+
+
+  User.findById(req.params.id, (error, user) => {
+    if(!error){
+        res.status(200).json(user.bookings);
+    } else {
+      res.status(500).json(error);
+    }
+  })
+})
 
 /**
 * Action:       SHOW
@@ -386,15 +405,15 @@ router.delete("/api/museums/:id/events/:id", requireToken, (request, response) =
 */
 router.get('/api/Booking/:id', (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
-  Museum.findById(req.params.id)
+  Booking.findById(req.params.id)
     .then(handle404)
     // if `findById` is succesful, respond with 200 and "museum" JSON
-    .then((museum) => {
+    .then((booking) => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
       // requireOwnership(req, museum)
     
-      res.status(200).json({ museum: museum.toObject() })
+      res.status(200).json({ booking: booking.toObject() })
     })
     // if an error occurs, pass it to the handler
     .catch(next)
@@ -407,27 +426,37 @@ router.get('/api/Booking/:id', (req, res, next) => {
 */
 router.post('/api/booking', requireToken, (req, res, next) => {
   // set owner of new museum to be current user
-  console.log(req.user._id);
-  console.log(req.user._id);
-  console.log("======");
+
+  
+  console.log("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_")
   console.log(req.body)
-  
-  
-  req.body.musuem.owner = req.user._id
-console.log("+++++++");
+  console.log(req.params)
 
-console.log(req.body.musuem);
+  User.findById(req.body.userId, (error, user) => {
+    if(!error){
+      user.bookings.push(req.body.booking);
+      console.log(user.bookings)
+      user.save(error => {
+        if(!error){
+          res.status(204).end();
+        } else {
+          console.log(error);
+          res.status(500).json(error);
+        }
+      });
+    } else {
+      console.log(error);
+    }
+  });
+  // .bookings.push(req.body.booking).save().exec((error, user) => {
+  //   if(!error){
+  //     res.status(204).end();
+  //   } else {
+  //     res.status(500).json(error)
+  //   }
+  // });
 
-  Museum.create(req.body.musuem)
-    // respond to succesful `create` with status 201 and JSON of new "museum"
-    .then((museum) => {
-      res.status(201).json({ museum: museum.toObject() })
-    })
-    // if an error occurs, pass it off to our error handler
-    // the error handler needs the error message and the `res` object so that it
-    // can send an error message back to the client
-    .catch(next)
-})
+});
 /**
  * Action:      DESTROY
  * Method:      DELETE
@@ -437,13 +466,13 @@ console.log(req.body.musuem);
 router.delete('/api/Booking/:id', (req, res, next) => {
   console.log("hello: ",req.params.id)
 
-  Museum.findById(req.params.id)
+  Booking.findById(req.params.id)
     .then(handle404)
-    .then(museum => {
+    .then(booking => {
       // throw an error if current user doesn't own `museum`
       // requireOwnership(req, museum)
       // delete the museum ONLY IF the above didn't throw
-      museum.remove()
+      booking.remove()
     })
     // send back 204 and no content if the deletion succeeded
     .then(() => res.sendStatus(204))
